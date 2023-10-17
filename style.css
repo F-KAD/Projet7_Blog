@@ -1,1 +1,32 @@
-{background: white;}
+/* Style pour le titre principal */
+.main-title {
+    color: black;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Style pour les titres de section en bleu gras */
+.section-title-blue {
+    color: blue;
+    font-weight: bold;
+}
+
+/* Style pour les titres de section en vert gras */
+.section-title-green {
+    color: green;
+    font-weight: bold;
+}
+
+/* Style pour le titre de section en rouge centré gras */
+.section-title-red {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Style pour les paragraphes */
+.container p {
+    color: black;
+    margin: 20px 0; /* Augmenter la marge à 20px pour l'espace vertical supplémentaire */
+}
+

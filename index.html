@@ -8,6 +8,90 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <script src="main.js"></script>
+    <div class="container">
+        <h1 class="main-title">Réaliser le prototype d’un produit IA permettant de prédire le sentiment associé à un tweet.</h1>
+        <p> Nous allons vous présenter puis comparer les différentes approches que nous avons mise en place puis la démarche MLOps mise en œuvre pour le prototype. 
+        </p>
+        <h2 class="section-title-blue">I - Présentation des trois approches</h2>
+        <p>Afin de réaliser le prototype d'un produit IA permettant de prédire le sentiment associé à un tweet. Nous allons vous présenter les différentes approches que nous avons mise en œuvre:
+            <ul class="custom-list">
+                <li>L'approche modèle sur mesure simple (Dummy Classifier, SVM, Regression logistique, Naive Bayes)
+                </li>
+                <li>L'approche Modèle sur mesure avancé (modèle de Deep learning avec et sans LSTM)
+                </li>
+                <li>L'approche Modèle BERT (Bidirectional Encoder Representations from Transformer)
+                </li>
+            </ul>
+        Nous commençons par une approche une “Modèle sur mesure simple”, pour développer rapidement un modèle d'apprentissage supervisé pour effectuer une classification binaire. Nous continuons par la suite, par une approche “Modèle sur mesure avancé”, pour développer un modèle basé sur des réseaux de neurones profonds. (Nous déploirons à termes cette 2è𝑚𝑒 approche). Enfin, nous regarderons de plus l’apport en performance d’un modèle BERT, Ce qui nous permet de voir si l'on doit investir dans ce type de modèle.
+        </p>
+
+        <h2 class="section-title-blue">II - Comparaison des trois approches
+        </h2>
+        <p>Pour évaluer les modèles, nous créons la ROC curve ainsi que la matrice de confusion.  Nous utilisons ensuite les mesures de classification afin d’obtenir une meilleure évaluation de la qualité d'un modèle. Les principales métriques que nous utiliserons sont l'accuracy et le ROC AUC. Nous ajouterons également les History plot pour les modèles de deep learning. Nous comparons ceci à l'aide d'une synthèse de nos modèles faite avec l'UI de MLflow.
+        </p>
+        <h2 class="section-title-green">1 - Modèles sur mesure simples
+        </h2>
+        <p> Nous utilisons 4 modèles : Un Dummy Classifier, Une SVM, Une Regression logistique, Une Naive Bayes. Le meilleur modèle que nous avons entraîné est le BernouilliNB (Naive Bayes) avec une accuracy de 74,25%. Qui est de plus rapide lors du fit et de la prédiction. Après optimisation de ce modèle via une Grid Search afin d'optimiser les hyperparamètres, nous avons une accuracy et un ROC_AUC_Score = 75.1%.</p>
+        
+        <h2 class="section-title-green">2 - Modèles sur mesure avancés
+        </h2>
+        <p> Nous créons des modèles de Deep Learning pour essayer d'avoir une meilleure précision que nos modèles précédents. Nous testons d'abord deux modèles : un modèle classique avec une couche d'Embedding et des couches Denses (fully-connected). Puis, un modèle avec une couche LSTM bidirectionnelle entre une couche d'Embedding et une couche Dense.
+        Nous faisons des simulations selon deux techniques de pré-traitement : une lemmatization et un stemming. Afin de choisir la technique pour la suite des simulations.
+        Nous utilisons sur le meilleur des deux modèle prétraités, deux approches de Word Embedding pour tenter d'améliorer les performances : un Word2Vec embedding et un Glove embedding.
+        Nous réalisons des tests sur le même sample du dataset que l’approche classique afin de comparer les résultats. Puis, sur un jeu de données plus important. Le meilleur modèle que nous avons entraîné est le Modèle LSTM Stematisé avec Glovoe embedding avec une accuracy de 77.20%. Nous avons réentraîné ce
+        modèle avec plus de tweets afin d'améliorer son apprentissage ainsi nous avons une accuracy de 81.63%.
+        </p>
+
+         <h2 class="section-title-green">3 - Modèle BERT
+        </h2>
+        <p> Nous avons créé un modèle BERT, nous utilisons directement un modèle Hugging Face de type TFBertForSequenceClassification.
+        D'après les résultats, nous avons des avantages avec ce modèle. en effet, nous avons des résultats satisfaisant avec un petit sample de données, des hyperparamètres et un nombre d'epochs non optimisés.
+        Ainsi, si nous n'avons pas de contrainte de temps, Il serait intéressant d'investir dans ce type de modèle que nous pourrions optimiser afin d'obtenir d'encore meilleurs résultats.
+        </p>
+
+        <h2 class="section-title-blue">III - Démarche MLOps mise en œuvre pour le prototype</h2>
+        <p> Commençons par définir le MLOps (Machine Learning Operations).
+        </p>
+        <p> Le MLOps est un processus transverse, collaboratif et itératif qui opérationnalise la Data Science en traitant le Machine Learning (ML) et d’autres types de modèles comme des artefacts logiciels réutilisables qui peuvent être déployés et surveillés continuellement via un processus reproductible.
+        </p>
+        <p>
+        Le MLOps prend en charge l’intégration continue, ainsi que le déploiement rapide et reproductible des modèles. Il aide ainsi les utilisateurs métier à faire émerger plus rapidement de précieuses informations exploitables de leurs données. Le MLOps implique également une surveillance et un réentraînement continuels des modèles en production afin de s’assurer qu’ils fonctionnent de manière optimale à mesure que les données changent au fil du temps (data drift).</p>
+        <p>
+        Pour créer un prototype permettant de prédire le sentiment associé à un tweet orienté MLOps, nous avons suivis un processus MLOps simplifié.</p> 
+        <p>Reprenons les différentes étapes:
+        
+        <h3 class="section-title-green">1 - Création
+        </h3>
+        <p> Pour cette partie, nous avons préparé nos données puis créé un environnement MLFlow permettant le tracking lors de l’entraînement des modèles. (Le stockage des données de tracking est fait de manière locale dans des répertoires.) 
+        </p>
+
+        <h3 class="section-title-green">2 - Gestion
+        </h3>
+        <p> Dans cette partie, nous allons déposer notre projet sur Github. Nous pouvons le consulter sur ce lien: https://github.com/F-KAD/Projet7_Blog.
+        </p>
+
+        <h3 class="section-title-green">3 - Déploiement
+        </h3>
+        <p> Dans cette partie, nous allons déployer une API de prédiction (Flask) intégrant l’exécution automatique de tests unitaires sur Azure Webapp. Nous pourrons ainsi via une interface streamlit (en local) saisir du texte brut (le tweet) puis par appel de l’API via son URI, réceptionner et afficher le sentiment associé. (Voir les fichiers pythons dans GitHub : app.py et stream.py) 
+        </p>
+
+        <h3 class="section-title-green">4 - Surveillance
+        </h3>
+        <p>  Nous ne traiterons pas cette partie car ce n'est pas le but du projet. Si nous devions
+        réaliser cette étape nous pourrions réentrainer notre modèle avec plus de tweet dans le temps ou même le remplacer par un modèle plus performant.
+        </p>
+        </p>
+
+        <h2 class="section-title-red">Conclusion</h2>
+        <p>Pour conclure, nous devions réaliser un prototype d’un produit IA qui renvoie un sentiment associé à un tweet donné en entrée. Ainsi nous avons pu le réaliser via une interface streamlit qui récupère un tweet en
+        entrée et renvoie en sortie le sentiment associé  ournis par l'API (Flask) de prédiction utilisant notre modèle avancé le plus performant stocké via MLFlow.
+        </p>
+
+        <h2 class="section-title-red">Ouverture</h2>
+        <p>Maintenant que nous avons réalisé un prototype, si celui-ci est validé, nous pourrions aller plus loin dans notre démarche en optimisant encore plus nos modèles (hyperparamètres, plus de données, modèles de
+        deep learning plus poussés ...) afin d'avoir un produit encore plus performant
+        </p>
+        
+    </div>
 </body>
 </html>
